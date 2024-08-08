@@ -73,18 +73,26 @@
             <i class="link-arrow" data-feather="chevron-down"></i>
             </a>
             <div class="collapse" id="testimony">
-            <ul class="nav sub-menu">
-                <li class="nav-item">
-                <a href="{{route('testimony')}}" class="nav-link">Testimonials</a>
-                </li>
-                {{-- <li class="nav-item">
-                    <a href="{{route('all.services')}}" class="nav-link">All Service</a>
+                <ul class="nav sub-menu">
+                    <li class="nav-item">
+                    <a href="{{route('testimony')}}" class="nav-link">Testimonials</a>
                     </li>
-                <li class="nav-item">
-                <a href="{{route('service.category')}}" class="nav-link">Service Category</a>
-                </li> --}}
-               
-            </ul>
+                </ul>
+            </div>
+        </li>
+
+        <li class="nav-item">
+            <a class="nav-link" data-bs-toggle="collapse" href="#event" role="button" aria-expanded="false" aria-controls="testimony">
+            <i class="link-icon" data-feather="mail"></i>
+            <span class="link-title">Manage Events</span>
+            <i class="link-arrow" data-feather="chevron-down"></i>
+            </a>
+            <div class="collapse" id="event">
+                <ul class="nav sub-menu">
+                    <li class="nav-item">
+                    <a href="{{route('events')}}" class="nav-link">Events</a>
+                    </li>
+                </ul>
             </div>
         </li>
 

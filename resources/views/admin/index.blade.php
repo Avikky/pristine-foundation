@@ -76,6 +76,19 @@
                   </div>
 
                   <div class="mb-3">
+                    <label for="acct_name" class="form-label">Donation Acct Name</label>
+                    <input type="text" class="form-control" name="acct_name" value="{{$allSettings->acct_name}}">
+                  </div>
+                  <div class="mb-3">
+                    <label for="acct_no" class="form-label">Donation Acct No</label>
+                    <input type="text" class="form-control" name="acct_no" value="{{$allSettings->acct_no}}">
+                  </div>
+                  <div class="mb-3">
+                    <label for="bank" class="form-label">Donation Bank Name</label>
+                    <input type="text" class="form-control" name="bank" value="{{$allSettings->bank}}">
+                  </div>
+
+                  <div class="mb-3">
                     <label for="facebook" class="form-label">Facebook Page</label>
                     <input type="text" class="form-control" name="facebook" value="{{$allSettings->facebook}}">
                   </div>

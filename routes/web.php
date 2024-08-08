@@ -4,6 +4,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AgentController;
 use App\Http\Controllers\Backend\BlogController;
 use App\Http\Controllers\Backend\ContactController;
+use App\Http\Controllers\Backend\EventController;
 use App\Http\Controllers\Backend\GalleryController;
 use App\Http\Controllers\Backend\SettingsController;
 use App\Http\Controllers\Backend\ServiceController;
@@ -13,7 +14,6 @@ use App\Http\Controllers\Backend\TeamController;
 use App\Http\Controllers\Backend\TestimonialController;
 use App\Http\Controllers\Frontend\PageController;
 use App\Http\Controllers\ProfileController;
-use App\Models\Testimonial;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -112,7 +112,7 @@ Route::middleware(['auth', 'role:admin'])->group(function(){
         Route::get('/sliders/delete-sliders/{id}', 'deleteSlider')->name('delete.slider');
     });
 
-     // Slider Controller groups
+     // Testimonial Controller groups
      Route::controller(TestimonialController::class)->group(function(){
         Route::get('/testimonials', 'index')->name('testimony');
         Route::post('/testimonials', 'create')->name('add.testimony'); 
@@ -120,12 +120,13 @@ Route::middleware(['auth', 'role:admin'])->group(function(){
         Route::get('/testimonials/delete/{id}', 'delete')->name('delete.testimony');
     });
 
-    // Route::group( function(){
-    //     Route::get('/testimonials',[TestimonialController::class,'index'])->name('testimony');
-    //     Route::post('/testimonials',[TestimonialController::class,'create'])->name('add.testimony'); 
-    //     Route::post('/testimonials/update/{id}',[TestimonialController::class, 'update'])->name('update.testimony');
-    //     Route::get('/testimonials/delete/{id}',[TestimonialController::class, 'delete'])->name('delete.testimony');
-    // });
+    Route::controller(EventController::class)->group(function(){
+        Route::get('/events', 'index')->name('events');
+        Route::post('/events', 'create')->name('add.events'); 
+        Route::post('/events/update/{id}', 'update')->name('update.events');
+        Route::get('/events/delete/{id}', 'delete')->name('delete.events');
+    });
+
     
     // Projects Controller groups
      Route::controller(ProjectController::class)->group(function(){ 

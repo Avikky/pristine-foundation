@@ -74,7 +74,43 @@
 <a class="scrollToTop" href="#"><i class="fa fa-angle-up"></i></a>
 </div>
 
-
+<script>
+  var url = 'https://wati-integration-prod-service.clare.ai/v2/watiWidget.js?34821';
+  var s = document.createElement('script');
+  s.type = 'text/javascript';
+  s.async = true;
+  s.src = url;
+  var options = {
+  "enabled":true,
+  "chatButtonSetting":{
+      "backgroundColor":"#c2111b",
+      "ctaText":"Chat with us",
+      "borderRadius":"25",
+      "marginLeft": "0",
+      "marginRight": "20",
+      "marginBottom": "20",
+      "ctaIconWATI":false,
+      "position":"right"
+  },
+  "brandSetting":{
+      "brandName":"PLEF FOUNDATION",
+      "brandSubTitle":"undefined",
+      "brandImg":"https://www.wati.io/wp-content/uploads/2023/04/Wati-logo.svg",
+      "welcomeText":"Hi there!\nHow can I help you?",
+      "messageText":"Hello, %0A My name is ..",
+      "backgroundColor":"#c2111b",
+      "ctaText":"Chat with us",
+      "borderRadius":"25",
+      "autoShow":false,
+      "phoneNumber":"8032033792"
+  }
+  };
+  s.onload = function() {
+      CreateWhatsappChatWidget(options);
+  };
+  var x = document.getElementsByTagName('script')[0];
+  x.parentNode.insertBefore(s, x);
+</script>
 
 <script data-cfasync="false" src="../../../cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="{{asset('frontend/assets/dist/js/custom.js')}}"></script>
 

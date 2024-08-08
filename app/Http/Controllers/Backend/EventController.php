@@ -3,97 +3,110 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
+use App\Models\Event;
 use App\Models\Testimony;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
-class TestimonialController extends Controller
+class EventController extends Controller
 {
     public function index(){
-        
-        $testimonials = Testimony::latest()->get();
-        return view('testimonials', compact('testimonials'));
+        $events = Event::latest()->get();
+        return view('events', compact('events'));
     }
 
     // All Team Method
     public function create(Request $request){
         $request->validate([
-            'name' => 'required|string',
+            'title' => 'required|string',
             'location' => 'nullable|string',
-            'designation' => 'required|string',
-            'testimony' => 'required|string',
-            // 'image' => 'nullable|file|image|mimes:jpeg,png,jpg|max:2048',
+            'description' => 'required|string',
+            'event_status' => 'required|integer',
+            'event_date' => 'nullable|date',
+            'image' => 'required|file|image|mimes:jpeg,png,jpg,gif,jpeg,webp|max:2048',
         ]);
 
         
-        // if($request->file('image')){
-        //     $file = $request->file('image');
-        //     $filename = date('YmdHi').$file->getClientOriginalName();
-        //     $file->move(public_path('uploads/testimonials'), $filename);
-        // }
+        if($request->file('image')){
+            $file = $request->file('image');
+            $filename = date('YmdHi').$file->getClientOriginalName();
+            $file->move(public_path('uploads/events'), $filename);
+        }
 
-        $testimonial = new Testimony;
+        $event = new Event;
 
-        $testimonial->name = $request->name;
-        $testimonial->location = $request->location;
-        $testimonial->designation = $request->designation;
-        $testimonial->testimony = $request->testimony;
-        $testimonial->save();
+        $event->title = $request->title;
+        $event->location = $request->location;
+        $event->description = $request->description;
+        $event->event_date = Carbon::parse($request->event_date)->format('Y-m-d');	
+        $event->image = $filename;
+        $event->image_url = asset('/uploads/events/'.$filename);
+        $event->status = $request->event_status;
+        $event->save();
 
        
 
         $notification = [
-            'message' => 'Testimoney Added Successfully!',
+            'message' => 'New Event created Successfully!',
             'alert-type' => 'success'
         ];
 
-        return redirect()->route('testimony')->with($notification);
+        return redirect()->route('events')->with($notification);
     }
 
     //  Beginning of Service Update
     public function update(Request $request,$id){
-        // return $request;
-       $testimonial = Testimony::findOrFail($id);
-   
-        $testimonial->update([
-            'name' => $request->name,
-            'designation' => $request->designation,
-            'location' => $request->location,
-            'testimony' => $request->testimony,
+
+        $request->validate([
+            'title' => 'required|string',
+            'location' => 'nullable|string',
+            'description' => 'required|string',
+            'event_status' => 'required|integer',
+            'event_date' => 'nullable|date',
+            'image' => 'required|file|image|mimes:jpeg,png,jpg,gif,jpeg,webp|max:2048',
         ]);
-        
-        // if($request->file('image')){
-        //     $file = $request->file('image');
-        //     @unlink(public_path('uploads/testimonials/'.$testimonial->image));
-        //     $filename = $file->getClientOriginalName();
-        //     $file->move(public_path('uploads/testimonials'), $filename);
-        //     $testimonial->image = $filename;
-        //     $testimonial->image_url = asset('/uploads/testimonials/'.$filename);
+
+       $event = Event::findOrFail($id);
+   
+        if($request->file('image')){
+            $file = $request->file('image');
+            @unlink(public_path('uploads/events/'.$event->image));
+            $filename = $file->getClientOriginalName();
+            $file->move(public_path('uploads/events'), $filename);
+            $event->image = $filename;
+            $event->image_url = asset('/uploads/events/'.$filename);
+        }
+
             
-        // }
+        $event->title = $request->title;
+        $event->location = $request->location;
+        $event->description = $request->description;
+        $event->event_date = Carbon::parse($request->event_date)->format('Y-m-d');	
+        $event->image = $filename;
+        $event->image_url = asset('/uploads/events/'.$filename);
+        $event->status = $request->event_status;
+        $event->save();
 
-        //    return $updateteam;
-
-        $testimonial->save();
 
         $notification = [
-            'message' => 'Project Updated Successfully!',
+            'message' => 'Event Updated Successfully!',
             'alert-type' => 'success'
         ];
 
-        return redirect()->route('testimony')->with($notification);
+        return redirect()->route('events')->with($notification);
     }
  //  End of Service Update
 
  
      //Partial Delete Team
-     public  function deleteTeam($id){
+     public  function deleteEvent($id){
     
-        $deleteTestimony = Testimony::findOrFail($id);
+        $deleteEvent = Event::findOrFail($id);
         // return $deleteTeam;
-        $deleteTestimony->delete();
+        $deleteEvent->delete();
 
         $notification = [
-            'message' => 'Testimonial deleted  Successfully!',
+            'message' => 'Event deleted  Successfully!',
             'alert-type' => 'success'
         ];
 

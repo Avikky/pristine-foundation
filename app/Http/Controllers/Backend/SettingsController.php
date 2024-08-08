@@ -50,6 +50,10 @@ class SettingsController extends Controller
                 $updateSettings->facebook = $request->facebook;
                 $updateSettings->instagram = $request->instagram;
                 $updateSettings->linkedin = $request->linkedin;
+                $updateSettings->acct_name = $request->acct_name;
+                $updateSettings->acct_no = $request->acct_no;
+                $updateSettings->bank = $request->bank;
+
 
                 $updateSettings->save();
 

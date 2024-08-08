@@ -12,6 +12,8 @@ use App\Models\Slider;
 use App\Models\Blog;
 use App\Models\Gallery;
 use App\Models\BlogCategory;
+use App\Models\Event;
+use App\Models\GalleryCategory;
 use App\Models\ServiceCategory;
 use App\Models\Testimonial;
 use Illuminate\Http\Request;
@@ -25,9 +27,11 @@ class PageController extends Controller
         $settings = Setting::where('id', 1)->first();
         $sliders = Slider::where('deleted_at', 0)->get();
         $testimonials = Testimonial::inRandomOrder()->limit(6)->get();
+    
+        $events = Event::inRandomOrder()->limit(3)->get();
         // return $sliders;
         // return view('frontend.index', compact('sliders', 'settings', 'services', 'projects'));
-        return view('frontend.index', compact('sliders', 'settings', 'services', 'blogposts', 'testimonials'));
+        return view('frontend.index', compact('sliders', 'settings', 'services', 'blogposts', 'testimonials', 'events'));
     }
 
     public function aboutUs(){
@@ -77,11 +81,17 @@ class PageController extends Controller
         return view('frontend.projects', compact('settings', 'projects', 'project_overview'));
     } 
 
-    public function Gallery(){
-        $gallerys = Gallery::with('gallery_category')->where('deleted_at', 0)->get();
+    public function Gallery(Request $request){
+        if($request->has('category')){
+            $gallerys = Gallery::with('gallery_category')->where('gallery_cat_id', $request->category)->where('deleted_at', 0)->get();
+        }else{
+            $gallerys = Gallery::with('gallery_category')->where('deleted_at', 0)->get();
+        }
+        
+        $galleryCategories = GalleryCategory::inRandomOrder()->latest()->get();
         $blogposts = Blog::with('blog_category')->where('deleted_at', 0)->get();
         $settings = Setting::where('id', 1)->first();
-        return view('frontend.gallery', compact('settings', 'gallerys', 'blogposts'));
+        return view('frontend.gallery', compact('settings', 'gallerys', 'blogposts', 'galleryCategories'));
     }
 
     public function Blog(){

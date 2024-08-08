@@ -260,7 +260,7 @@
                     <p class="text-white font-size-18">Supporting Pristine Life Enhancement Foundation with your <span>
                             Donation </span> helps us empower and uplift communities in need.</p>
                     <div class="tm-sc tm-sc-button text-center mt-20">
-                        <a href="{{ route('donation') }}" class="btn btn-danger btn-round">
+                        <a href="#" class="btn btn-danger btn-round" data-toggle="modal" data-target="#donationModal">
                             Donate Us Now</a>
                     </div>
                 </div>
@@ -430,8 +430,7 @@
                                         </div>
                                     </div>
                                @endforeach
-                              
-
+                        
                             </div>
                         </div>
                     </div>
@@ -441,12 +440,89 @@
     </section>
 
     <section>
+        <div class="container">
+            <div class="section-content">
+                <div class="text-center">
+                    <h2 class="title text-uppercase mt-0"><span class>Events</span> And <span
+                        class="text-theme-colored1">Activities</span></h2>
+                        <p>See our most exciting events</p>
+                </div>
+                <div class="row mb-80" data-tm-margin-top="50px">
+                    @foreach($events as $event)
+                        <div class="col-md-6 col-lg-4 mb-md-30">
+                            <div
+                                class="tm-sc tm-sc-icon-box icon-box icon-top text-center iconbox-box-shadow iconbox-default-padding iconbox-centered-in-responsive icon-position-icon-top feature-box bg-white p-20">
+                                <div class="icon-wrapper">
+                                    <a class="icon icon-type-image icon-default">
+                                        <img src="{{ $event->image_url }}" alt="Image"></a>
+                                </div>
+                                <div class="icon-text">
+                                    <h6 class="icon-box-title ">
+                                        {{$event->title}}
+                                    </h6>
+                                    <div class="content text-justify">
+                                        <p>{!! strip_tags(Str::limit($event->description, 140)) !!}</p>
+
+                                    </div>
+                                </div>
+                                <div class="pt-4">
+                                    <a href="#" class="btn btn-outline-theme-colored1 btn-outline btn-sm"
+                                        data-toggle="modal" data-target="#eventModal{{$event->id}}">
+                                        View Details</a>
+                                </div>
+
+                                <div class="clearfix"></div>
+                            </div>
+                        </div>
+
+                        {{-- start modal sections  --}}
+                            <div class="modal fade" id="eventModal{{$event->id}}" tabindex="-1" role="dialog" aria-labelledby="eventModal"
+                            aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title">{{$event->title}}</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div class="icon-wrapper ma-auto text-center">
+                                                <a class="icon icon-type-image icon-default">
+                                                    <img src="{{ $event->image_url }}" alt="Image"></a>
+                                            </div>
+                                            <div class="icon-text text-center">
+                                                <h3 class="icon-box-title ">
+                                                    {{$event->title}}
+                                                </h3>
+                                                <div class="content text-justify">
+                                                    {!! $event->description !!}
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-outline-theme-colored1 btn-outline btn-sm"
+                                                data-dismiss="modal">Close</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        {{-- end modal sections  --}}
+                    @endforeach
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section>
         <div class="container pb-60">
             <div class="section-title text-center mb-40">
                 <div class="row justify-content-md-center">
                     <div class="col-md-9">
-                        <h2 class="title text-uppercase mt-0"><span class>Health And</span> <span
-                                class="text-theme-colored1">Wellness Insight</span></h2>
+                        <h2 class="title text-uppercase mt-0"><span class>Life Enhancement</span> <span
+                                class="text-theme-colored1">Insight</span></h2>
                         <p>Whether you're looking for tips on maintaining good health, updates on our latest initiatives, or
                             heartwarming stories from the field, our blog is your go-to resource.</p>
                     </div>
